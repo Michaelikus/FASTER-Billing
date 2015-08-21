@@ -1,5 +1,5 @@
 # FASTER-Billing
-##Free ASTERisk Billing
+Free ASTERisk Billing
 
 Случилось так, что на новом месте мне пришлось погрузиться в тонкости учета звонков Asterisk. А так как политикой компании является лозунг "дешево и сердито", я решил взяться за эту интересную задачу сам.
 
@@ -25,10 +25,14 @@
 ####Попробуем разобраться.
 
 [Структура таблицы](https://wiki.asterisk.org/wiki/display/AST/PostgreSQL+CEL+Backend):
-id serial , 
-eventtype varchar (30) NOT NULL ,
-eventtime timestamp NOT NULL ,
-userdeftype varchar(255) NOT NULL ,
+`
+id serial , .
+
+eventtype varchar (30) NOT NULL , 
+
+
+eventtime timestamp NOT NULL , 
+userdeftype varchar(255) NOT NULL , 
 cid_name varchar (80) NOT NULL , 
 cid_num varchar (80) NOT NULL ,
 cid_ani varchar (80) NOT NULL , 
@@ -46,6 +50,6 @@ uniqueid varchar (150) NOT NULL ,
 linkedid varchar (150) NOT NULL , 
 userfield varchar (255) NOT NULL ,
 peer varchar (80) NOT NULL 
-
+`
 #####Грабли №1.
 Настроим PgSQL так, чтоб он логировал некорректные запросы. Позже расскажу для чего.

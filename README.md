@@ -28,6 +28,7 @@ Free ASTERisk Billing
 `
 id serial ,   
 eventtype varchar (30) NOT NULL ,   
+
 eventtime timestamp NOT NULL ,      
 userdeftype varchar(255) NOT NULL ,   
 cid_name varchar (80) NOT NULL ,    

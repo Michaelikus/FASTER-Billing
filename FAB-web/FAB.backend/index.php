@@ -11,10 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-<<<<<<< HEAD
         // put your code here
-=======
->>>>>>> origin/master
         phpinfo();
         ?>
     </body>

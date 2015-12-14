@@ -1,34 +1,30 @@
 CREATE TABLE public.cel (
-  id INTEGER DEFAULT nextval('cel_id_seq1'::regclass) NOT NULL,
-  eventtype VARCHAR(30) NOT NULL,
+  id INTEGER DEFAULT nextval('cel_id_seq2'::regclass) NOT NULL,
+  eventtype VARCHAR NOT NULL,
   eventtime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-  userdeftype VARCHAR(255) NOT NULL,
-  cid_name VARCHAR(80) NOT NULL,
-  cid_num VARCHAR(80) NOT NULL,
-  cid_ani VARCHAR(80) NOT NULL,
-  cid_rdnis VARCHAR(80) NOT NULL,
-  cid_dnid VARCHAR(80) NOT NULL,
-  exten VARCHAR(80) NOT NULL,
-  context VARCHAR(80) NOT NULL,
-  channame VARCHAR(80) NOT NULL,
-  appname VARCHAR(80) NOT NULL,
-  appdata VARCHAR(80) NOT NULL,
+  userdeftype VARCHAR NOT NULL,
+  cid_name VARCHAR NOT NULL,
+  cid_num VARCHAR NOT NULL,
+  cid_ani VARCHAR NOT NULL,
+  cid_rdnis VARCHAR NOT NULL,
+  cid_dnid VARCHAR NOT NULL,
+  exten VARCHAR NOT NULL,
+  context VARCHAR NOT NULL,
+  channame VARCHAR NOT NULL,
+  appname VARCHAR NOT NULL,
+  appdata VARCHAR NOT NULL,
   amaflags INTEGER NOT NULL,
-  accountcode VARCHAR(20) NOT NULL,
-  peeraccount VARCHAR(20) NOT NULL,
-  uniqueid VARCHAR(150) NOT NULL,
-  linkedid VARCHAR(150) NOT NULL,
-  userfield VARCHAR(255) NOT NULL,
-  peer VARCHAR(80) NOT NULL,
-  CONSTRAINT "PK_cel_id" PRIMARY KEY(id)
+  accountcode VARCHAR NOT NULL,
+  peeraccount VARCHAR NOT NULL,
+  uniqueid VARCHAR NOT NULL,
+  linkedid VARCHAR NOT NULL,
+  userfield VARCHAR NOT NULL,
+  peer VARCHAR NOT NULL
 ) 
 WITH (oids = false);
 
 CREATE INDEX idx_cel_accountcode ON public.cel
   USING btree (accountcode COLLATE pg_catalog."default");
-
-CREATE INDEX idx_cel_amaflags ON public.cel
-  USING btree (amaflags);
 
 CREATE INDEX idx_cel_appdata ON public.cel
   USING btree (appdata COLLATE pg_catalog."default");
@@ -66,9 +62,6 @@ CREATE INDEX idx_cel_eventtype ON public.cel
 CREATE INDEX idx_cel_exten ON public.cel
   USING btree (exten COLLATE pg_catalog."default");
 
-CREATE UNIQUE INDEX idx_cel_id ON public.cel
-  USING btree (id);
-
 CREATE INDEX idx_cel_linkedid ON public.cel
   USING btree (linkedid COLLATE pg_catalog."default");
 
@@ -81,8 +74,11 @@ CREATE INDEX idx_cel_peeraccount ON public.cel
 CREATE INDEX idx_cel_uniqueid ON public.cel
   USING btree (uniqueid COLLATE pg_catalog."default");
 
-CREATE INDEX idx_cel_userdeftype ON public.cel
-  USING btree (userdeftype COLLATE pg_catalog."default");
+CREATE UNIQUE INDEX idx_celid ON public.cel
+  USING btree (id);
 
-CREATE INDEX idx_cel_userfield ON public.cel
-  USING btree (userfield COLLATE pg_catalog."default");
+CREATE TRIGGER cel_tr01
+  AFTER INSERT 
+  ON public.cel FOR EACH ROW 
+  EXECUTE PROCEDURE public."CEL_TRIGGER01"();
+
